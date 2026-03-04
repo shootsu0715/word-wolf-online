@@ -132,7 +132,14 @@ export default function MasterSetup({ roomCode, playerCount, presetPair }) {
   const [discussionMinutes, setDiscussionMinutes] = useState(3);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const maxWolf = Math.max(1, playerCount - 2);
+  const maxWolf = Math.max(1, playerCount - 1);
+
+  // エラー時にisSubmittingをリセット
+  React.useEffect(() => {
+    const handleError = () => setIsSubmitting(false);
+    socket.on('error_msg', handleError);
+    return () => socket.off('error_msg', handleError);
+  }, []);
 
   const handleShuffle = () => {
     socket.emit('shuffle_preset', null, (pair) => {

@@ -191,7 +191,7 @@ class GameManager {
 
     // バリデーション
     if (wolfCount < 1) return { error: 'ウルフは1人以上必要です' };
-    if (wolfCount > playerCount - 2) return { error: `ウルフは最大${playerCount - 2}人までです（市民が最低2人必要）` };
+    if (wolfCount > playerCount - 1) return { error: `ウルフは最大${playerCount - 1}人までです（市民が最低1人必要）` };
     if (!majorityTopic || !wolfTopic) return { error: 'お題を入力してください' };
     if (majorityTopic === wolfTopic) return { error: '多数派と少数派のお題は異なる必要があります' };
 
