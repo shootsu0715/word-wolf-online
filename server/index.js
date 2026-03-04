@@ -8,16 +8,15 @@ const { getRandomPair } = require('./topicPairs');
 
 const app = express();
 const server = http.createServer(app);
-// 本番環境ではCORS不要（同一オリジン）、開発時はViteのdevサーバーを許可
-const allowedOrigins = process.env.NODE_ENV === 'production'
-  ? []
-  : ['http://localhost:5173'];
-
 const io = new Server(server, {
   cors: {
-    origin: allowedOrigins,
+    origin: [
+      'https://word-wolf-online.onrender.com',
+      'http://localhost:5173',
+    ],
     methods: ['GET', 'POST'],
   },
+  transports: ['websocket', 'polling'],
 });
 
 const gm = new GameManager();
